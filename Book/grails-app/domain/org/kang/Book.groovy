@@ -13,12 +13,6 @@ class Book {
   }
 
   static mapping = {
-    // id generator: 'org.hibernate.id.enhanced.TableGenerator', params:[table_name:"ids", segment_value:"book"]
+    batchSize 10
   }
-
-  /*
-  String toString() {
-    "aaa"
-  }
-  */
 }
