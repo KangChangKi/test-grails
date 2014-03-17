@@ -43,4 +43,10 @@
       // ==> Or create indexes in DB directly!!!
      */
   }
+
+  /* Return representative string of fields of this object.
+  String toString() {
+    "${title}(${name})"
+  }
+  */
 }

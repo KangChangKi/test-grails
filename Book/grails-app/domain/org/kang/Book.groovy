@@ -15,4 +15,8 @@ class Book {
   static mapping = {
     batchSize 10
   }
+
+  String toString() {
+    title
+  }
 }

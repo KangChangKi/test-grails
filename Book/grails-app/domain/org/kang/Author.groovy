@@ -13,4 +13,8 @@ class Author {
   static mapping = {
     batchSize 10
   }
+
+  String toString() {
+    name
+  }
 }
