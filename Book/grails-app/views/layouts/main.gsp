@@ -18,6 +18,9 @@
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+    <!-- Custom theme -->
+    <link rel="stylesheet" href="${resource(dir: 'css/custom', file: 'common.css')}" type="text/css">
+    
     <g:layoutHead/>
     <g:javascript library="application"/>		
     <r:layoutResources />

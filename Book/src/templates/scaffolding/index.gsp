@@ -10,18 +10,18 @@
   <body>
 
     <div class="container">
-      <div class="row">
-	<div class="col-xs-12">
-	  <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-	</div>
-      </div>
 
-      <div class="row nav" role="navigation">
+      <!--
+      <div class="row">
+      <div class="col-xs-12">
+      <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+      </div>
+      </div>
+      -->
+
+      <div class="row nav margin-top-20" role="navigation">
 	<div class="col-xs-2">
 	  <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
-	</div>
-	<div class="col-xs-2">
-	  <g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
 	</div>
       </div>
     </div>
@@ -84,6 +84,15 @@
 
 	</div>
 	    </g:each>
+
+	    <div class="row margin-top-20">
+	      <div class="col-xs-12">
+		<g:link class="btn btn-default create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
+	      </div>
+	    </div>
+    </div>
+
+
     </div>
 
     <div class="container">
