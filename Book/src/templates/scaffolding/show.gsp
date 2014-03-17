@@ -13,9 +13,9 @@
 
       <!--
       <div class="row">
-	<div class="col-xs-12">
-	  <a href="#show-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-	</div>
+      <div class="col-xs-12">
+      <a href="#show-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+      </div>
       </div>
       -->
 
@@ -45,14 +45,30 @@
       </g:if>
 
       <div class="property-list ${domainClass.propertyName}">
-	<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
+	<%
+	excludedProps = Event.allEvents.toList() << 'id' << 'version'
 	allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
-	props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && (domainClass.constrainedProperties[it.name] ? domainClass.constrainedProperties[it.name].display : true) }
-	Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
+	props = domainClass.properties.findAll {
+	// allowedNames.contains(it.name) &&
+	!excludedProps.contains(it.name) &&
+	(domainClass.constrainedProperties[it.name] ? domainClass.constrainedProperties[it.name].display : true)
+	}
+
+	// Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
+
+	def map = [:]
+	domainClass.getClazz().getDeclaredFields().collect {
+	it.name
+	}.eachWithIndex { e, i ->
+	map.put(e, i)
+	}
+	props.sort { map[it.name] }
+
 	props.each { p -> %>
 	<g:if test="\${${propertyName}?.${p.name}}">
+	  
+	  <%  if (p.isEnum()) { %>
 	  <div class="row fieldcontain">
-	    <%  if (p.isEnum()) { %>
 	    <div id="${p.name}-label" class="col-xs-2 property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 	    </div>
@@ -60,11 +76,13 @@
 	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
 	      <g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
 	    </div>
-	    <%  } else if (p.oneToMany || p.manyToMany) { %>
+	  </div>
+	  <%  } else if (p.oneToMany || p.manyToMany) { %>
 
-	    <%  } else if (p.manyToOne || p.oneToOne) { %>
+	  <%  } else if (p.manyToOne || p.oneToOne) { %>
 
-	    <%  } else if (p.type == Boolean || p.type == boolean) { %>
+	  <%  } else if (p.type == Boolean || p.type == boolean) { %>
+	  <div class="row fieldcontain">
 	    <div id="${p.name}-label" class="col-xs-2 property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 	    </div>
@@ -72,7 +90,9 @@
 	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
 	      <g:formatBoolean boolean="\${${propertyName}?.${p.name}}" />
 	    </div>
-	    <%  } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
+	  </div>
+	  <%  } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
+	  <div class="row fieldcontain">
 	    <div id="${p.name}-label" class="col-xs-2 property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 	    </div>
@@ -80,7 +100,9 @@
 	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
 	      <g:formatDate date="\${${propertyName}?.${p.name}}" />
 	    </div>
-	    <%  } else if (!p.type.isArray()) { %>
+	  </div>
+	  <%  } else if (!p.type.isArray()) { %>
+	  <div class="row fieldcontain">
 	    <div id="${p.name}-label" class="col-xs-2 property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 	    </div>
@@ -88,8 +110,8 @@
 	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
 	      <g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
 	    </div>
-	    <%  } %>
 	  </div>
+	  <%  } %>
 	      </g:if>
 	      <%  } %>
 
@@ -122,7 +144,6 @@
 		  </div>
 		</div>
 		<%  } %>
-      </div>
 		    </g:if>
 		    <%  } %>
 
@@ -146,6 +167,6 @@
 		      </div>
 		    </div>
 
-    </div>
+      </div>
   </body>
 </html>
