@@ -17,4 +17,8 @@ class Author {
   String toString() {
     name
   }
+
+  static def removeAll() {
+    Author.executeUpdate('delete from Author')
+  }
 }

@@ -19,4 +19,8 @@ class Book {
   String toString() {
     title
   }
+
+  static def removeAll() {
+    Book.executeUpdate('delete from Book')
+  }
 }
