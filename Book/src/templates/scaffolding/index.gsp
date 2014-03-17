@@ -34,8 +34,8 @@
       </div>
 
       <g:if test="\${flash.message}">
-	<div class="row">
-	  <div class="col-xs-12">
+	<div class="row margin-bottom-10">
+	  <div class="col-xs-12 bg-info">
 	    <div class="message" role="status">\${flash.message}</div>
 	  </div>
 	</div>

@@ -37,8 +37,8 @@
       </div>
 
       <g:if test="\${flash.message}">
-	<div class="row">
-	  <div class="col-xs-12">
+	<div class="row margin-bottom-10">
+	  <div class="col-xs-12 bg-info">
 	    <div class="message" role="status">\${flash.message}</div>
 	  </div>
 	</div>
@@ -139,7 +139,7 @@
 				<g:message code="default.button.edit.label" default="Edit" />
 				</g:link>
 
-				<g:actionSubmit class="btn btn-primary delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				<g:actionSubmit class="btn btn-default delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 			    </fieldset>
 				</g:form>
 			</div>
