@@ -44,6 +44,11 @@
      */
   }
 
+  // Remove all rows in the table.
+  static def removeAll() {
+    @artifact.name@.executeUpdate('delete from @artifact.name@')
+  }
+
   /* Return representative string of fields of this object.
   String toString() {
     "${title}(${name})"
