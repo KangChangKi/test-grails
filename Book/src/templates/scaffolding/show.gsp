@@ -10,7 +10,6 @@
   <body>
 
     <div class="container">
-
       <!--
       <div class="row">
       <div class="col-xs-12">
@@ -27,7 +26,7 @@
 	  <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link>
 	</div>
       </div>
-    </div>
+    </div> <!-- end of container -->
 
     <div id="show-${domainClass.propertyName}" class="container" role="main">
       <div class="row">
@@ -44,7 +43,7 @@
 	</div>
       </g:if>
 
-      <div class="property-list ${domainClass.propertyName}">
+      <form class="form-horizontal property-list ${domainClass.propertyName}">
 	<%
 	excludedProps = Event.allEvents.toList() << 'id' << 'version'
 	allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
@@ -68,13 +67,14 @@
 	<g:if test="\${${propertyName}?.${p.name}}">
 	  
 	  <%  if (p.isEnum()) { %>
-	  <div class="row fieldcontain">
-	    <div id="${p.name}-label" class="col-xs-2 property-label">
+	  <div class="form-group fieldcontain">
+	    <div id="${p.name}-label" class="col-sm-2 control-label property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
 	    </div>
-
-	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-	      <g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
+	    <div class="col-sm-10">
+	      <p class="form-control-static property-value" aria-labelledby="${p.name}-label">
+		<g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
+	      </p>
 	    </div>
 	  </div>
 	  <%  } else if (p.oneToMany || p.manyToMany) { %>
@@ -82,91 +82,103 @@
 	  <%  } else if (p.manyToOne || p.oneToOne) { %>
 
 	  <%  } else if (p.type == Boolean || p.type == boolean) { %>
-	  <div class="row fieldcontain">
-	    <div id="${p.name}-label" class="col-xs-2 property-label">
+	  <div class="form-group fieldcontain">
+	    <label id="${p.name}-label" class="col-sm-2 control-label property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
-	    </div>
+	    </label>
 
-	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-	      <g:formatBoolean boolean="\${${propertyName}?.${p.name}}" />
+	    <div class="col-sm-10">
+	      <p class="col-sm-10 form-control-static property-value" aria-labelledby="${p.name}-label">
+		<g:formatBoolean boolean="\${${propertyName}?.${p.name}}" />
+	      </p>
 	    </div>
 	  </div>
 	  <%  } else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) { %>
-	  <div class="row fieldcontain">
-	    <div id="${p.name}-label" class="col-xs-2 property-label">
+	  <div class="form-group fieldcontain">
+	    <label id="${p.name}-label" class="col-sm-2 control-label property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
-	    </div>
+	    </label>
 
-	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-	      <g:formatDate date="\${${propertyName}?.${p.name}}" />
+	    <div class="col-sm-10">
+	      <p class="col-sm-10 form-control-static property-value" aria-labelledby="${p.name}-label">
+		<g:formatDate date="\${${propertyName}?.${p.name}}" />
+	      </p>
 	    </div>
 	  </div>
 	  <%  } else if (!p.type.isArray()) { %>
-	  <div class="row fieldcontain">
-	    <div id="${p.name}-label" class="col-xs-2 property-label">
+	  <div class="form-group fieldcontain">
+	    <label id="${p.name}-label" class="col-sm-2 control-label property-label">
 	      <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
-	    </div>
+	    </label>
 
-	    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-	      <g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
+	    <div class="col-sm-10">
+	      <p class="col-sm-10 form-control-static property-value" aria-labelledby="${p.name}-label">
+		<g:fieldValue bean="\${${propertyName}}" field="${p.name}"/>
+	      </p>
 	    </div>
 	  </div>
 	  <%  } %>
-	      </g:if>
-	      <%  } %>
-
-	      <% props.each { p -> %>
-	      <g:if test="\${${propertyName}?.${p.name}}">
-		<%  if (p.oneToMany || p.manyToMany) { %>
-		<div class="row fieldcontain">
-		  <div id="${p.name}-label" class="col-xs-2 property-label">
-		    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
-		  </div>
-		</div>
-
-		<g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
-		  <div class="row fieldcontain">
-		    <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-		      <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link>
-		    </div>
-		  </div>
-		</g:each>
-		<%  } else if (p.manyToOne || p.oneToOne) { %>
-		<div class="row fieldcontain">
-		  <div id="${p.name}-label" class="col-xs-2 property-label">
-		    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
-		  </div>
-		</div>
-
-		<div class="row fieldcontain">
-		  <div class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-		    <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link>
-		  </div>
-		</div>
+		</g:if>
 		<%  } %>
-		    </g:if>
-		    <%  } %>
+      </form>
+    </div> <!-- end of container -->
 
-		    <div class="container margin-top-20">
-		      <div class="row">
-			<div class="col-xs-12">
+    <div class="container">
+      <% props.each { p -> %>
+      <g:if test="\${${propertyName}?.${p.name}}">
+	<%  if (p.oneToMany || p.manyToMany) { %>
+	<div class="row fieldcontain">
+	  <div id="${p.name}-label" class="col-sm-12 control-label property-label">
+	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
+	  </div>
+	</div>
 
-			  <g:form url="[resource:${propertyName}, action:'delete']" method="DELETE">
-			    <fieldset class="buttons">
+	<table class="table table-hover table-condensed">
+	  <g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
+	    <tr class="fieldcontain">
+	      <td class="property-value" aria-labelledby="${p.name}-label">
+		<g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link>
+	      </td>
+	    </tr>
+	  </g:each>
+	</table>
 
-			      <g:link class="btn btn-default create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
+	<%  } else if (p.manyToOne || p.oneToOne) { %>
+	<div class="row fieldcontain">
+	  <div id="${p.name}-label" class="col-sm-12 property-label">
+	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
+	  </div>
+	</div>
 
-			      <g:link class="btn btn-default edit" action="edit" resource="\${${propertyName}}">
-				<g:message code="default.button.edit.label" default="Edit" />
-				</g:link>
+	<table class="table table-hover table-condensed">
+	  <tr class="fieldcontain">
+	    <td class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
+	      <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link>
+	    </td>
+	  </tr>
+	</table>
+	<%  } %>
+	    </g:if>
+	    <%  } %>
 
-				<g:actionSubmit class="btn btn-default delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-			    </fieldset>
-				</g:form>
-			</div>
-		      </div>
-		    </div>
+    </div> <!-- end of container -->
 
-      </div>
+    <div class="container">
+
+      <g:form url="[resource:${propertyName}, action:'delete']" method="DELETE">
+	<fieldset class="buttons">
+	  <g:link class="btn btn-default create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link>
+
+	  <g:link class="btn btn-default edit" action="edit" resource="\${${propertyName}}">
+	    <g:message code="default.button.edit.label" default="Edit" />
+	    </g:link>
+
+	    <g:actionSubmit class="btn btn-default delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+
+	</fieldset>
+	    </g:form>
+
+    </div> <!-- end of container -->
+
   </body>
 </html>
