@@ -19,7 +19,7 @@
       </div>
       -->
 
-      <div class="row nav margin-top-20" role="navigation">
+      <div class="row nav" role="navigation">
 	<div class="col-xs-2">
 	  <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
 	</div>
