@@ -8,7 +8,6 @@
   <body>
 
     <div class="container">
-
       <!--
 	  <div class="row">
 	    <div class="col-xs-12">
@@ -22,9 +21,10 @@
 	  <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
 	</div>
 	<div class="col-xs-2">
-	  <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></div>
+	  <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link>
+	</div>
       </div>
-    </div>
+    </div> <!-- end of container -->
 
     <div id="create-${domainClass.propertyName}" class="container" role="main">
       <div class="row">
@@ -55,17 +55,12 @@
 	<fieldset class="form">
 	  <g:render template="form"/>
 	</fieldset>
+
 	<fieldset class="buttons">
-	  <div class="row margin-top-20">
-	    <div class="col-xs-12">
-	      <g:submitButton name="create" class="btn btn-primary save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
-	    </div>
-	  </div>
+	  <g:submitButton name="create" class="btn btn-primary save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
 	</fieldset>
       </g:form>
-    </div>
 
-</div>
-
-</body>
+    </div> <!-- end of container -->
+  </body>
 </html>
