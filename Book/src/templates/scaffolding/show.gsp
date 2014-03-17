@@ -92,14 +92,11 @@
 	  <div class="col-xs-12">
 	    <g:form url="[resource:${propertyName}, action:'delete']" method="DELETE">
 	      <fieldset class="buttons">
-		<button type="button" class="btn btn-default">
-		  <g:link class="edit" action="edit" resource="\${${propertyName}}">
-		    <g:message code="default.button.edit.label" default="Edit" />
-		    </g:link>
-		</button>
-		<button type="button" class="btn btn-primary">
-		  <g:actionSubmit class="delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-		</button>
+		<g:link class="btn btn-default edit" action="edit" resource="\${${propertyName}}">
+		  <g:message code="default.button.edit.label" default="Edit" />
+		  </g:link>
+
+		  <g:actionSubmit class="btn btn-primary delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 	      </fieldset>
 		  </g:form>
 	  </div>
