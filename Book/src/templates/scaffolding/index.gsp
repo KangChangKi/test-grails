@@ -29,7 +29,7 @@
     <div id="list-${domainClass.propertyName}" class="container" role="main">
       <div class="row">
 	<div class="col-xs-12">
-	  <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+	  <h1><g:message code="default.list.label" args="[entityName]" /> (\${ ${domainClass.propertyName + "InstanceCount"} })</h1>
 	</div>
       </div>
 
