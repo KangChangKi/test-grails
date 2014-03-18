@@ -129,7 +129,7 @@
 	<%  if (p.oneToMany || p.manyToMany) { %>
 	<div class="row fieldcontain">
 	  <div id="${p.name}-label" class="col-sm-12 control-label property-label">
-	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
+	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h2>
 	  </div>
 	</div>
 
@@ -146,7 +146,7 @@
 	<%  } else if (p.manyToOne || p.oneToOne) { %>
 	<div class="row fieldcontain">
 	  <div id="${p.name}-label" class="col-sm-12 property-label">
-	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />:</h2>
+	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h2>
 	  </div>
 	</div>
 

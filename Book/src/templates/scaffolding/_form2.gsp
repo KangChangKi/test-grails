@@ -16,8 +16,8 @@ props = domainClass.properties.findAll {
   persistentPropNames.contains(it.name) &&
   !excludedProps.contains(it.name) &&
   (domainClass.constrainedProperties[it.name] ? domainClass.constrainedProperties[it.name].display : true) &&
-  !(it.oneToMany || it.manyToMany || it.manyToOne || it.oneToOne)
-  // && (it.oneToMany || it.manyToMany || it.manyToOne || it.oneToOne) )
+  // !(it.oneToMany || it.manyToMany || it.manyToOne || it.oneToOne)
+  (it.oneToMany || it.manyToMany || it.manyToOne || it.oneToOne)
 }
 
 // Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
@@ -67,14 +67,21 @@ private renderFieldForProperty(p, owningClass, prefix = "") {
   }
   if (display) {
 %>
-<div class="form-group fieldcontain \${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
-    <label for="${prefix}${p.name}">
-      <g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
+<div class="row">
+<div class="col-sm-12 \${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
+  <h2>
 <%  if (required) { %>
       <span class="required-indicator">*</span>
 <%  } %>
-    </label>
+  <g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
+  </h2>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
     ${renderEditor(p)}
+</div>
 </div>
 <%
     } // end of method

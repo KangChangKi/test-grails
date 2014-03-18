@@ -31,6 +31,8 @@
     else if (property.oneToMany)
         out << renderOneToMany(domainClass, property)
 
+    // methods
+
     private renderEnumEditor(domainClass, property) {
 		def sb = new StringBuilder("")
         sb << '<g:select class=\"form-control\" name="' << property.name << '"'
@@ -141,13 +143,6 @@
         pw.println()
         pw.println '<div class="one-to-many">'
 
-	// add link
-	pw.println '<div class="row add">'
-	pw.println '<div class="col-sm-2 margin-bottom-10 add">'
-        pw.println "<g:link controller=\"${property.referencedDomainClass.propertyName}\" action=\"create\" params=\"['${domainClass.propertyName}.id': ${domainInstance}?.id]\">\${message(code: 'default.add.label', args: [message(code: '${property.referencedDomainClass.propertyName}.label', default: '${property.referencedDomainClass.shortName}')])}</g:link>"
-	pw.println '</div>'
-	pw.println '</div>'
-
 	// list of item
 	pw.println '<table class="table table-hover table-condensed">'
         pw.println "<g:each in=\"\${${domainInstance}?.${property.name}?}\" var=\"${property.name[0]}\">"
@@ -158,6 +153,13 @@
 	pw.println '</tr>'
         pw.println '</g:each>'
 	pw.println '</table>'
+
+	// add link
+	pw.println '<div class="row add">'
+	pw.println '<div class="col-sm-2 add">'
+        pw.println "<g:link class=\"btn btn-default\" controller=\"${property.referencedDomainClass.propertyName}\" action=\"create\" params=\"['${domainClass.propertyName}.id': ${domainInstance}?.id]\">\${message(code: 'default.add.label', args: [message(code: '${property.referencedDomainClass.propertyName}.label', default: '${property.referencedDomainClass.shortName}')])}</g:link>"
+	pw.println '</div>'
+	pw.println '</div>'
 
         pw.println '</div>'
         return sw.toString()

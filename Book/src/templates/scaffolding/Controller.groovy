@@ -8,6 +8,11 @@ class ${className}Controller {
 
     static scaffold = true
 
+    // development only!!!
+    def afterInterceptor = {
+      org.codehaus.groovy.grails.scaffolding.view.ScaffoldingViewResolver.scaffoldedViews.clear()
+    }
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {

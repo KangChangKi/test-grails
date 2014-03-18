@@ -57,7 +57,8 @@
 	<g:hiddenField name="version" value="\${${propertyName}?.version}" />
 
 	<fieldset class="form">
-	  <g:render template="form"/>
+	  <g:set var="primitive" value="${true}" />
+	  <g:render template="form" />
 	</fieldset>
 
 	<fieldset class="buttons">
@@ -69,6 +70,15 @@
 
 	</fieldset>
 	    </g:form>
+
+	    <hr/>
+
+	    <div class="row">
+	      <div class="col-sm-12">
+		<g:render template="form2" />
+	      </div>
+	    </div>
+
     </div> <!-- end of container -->
 
   </body>

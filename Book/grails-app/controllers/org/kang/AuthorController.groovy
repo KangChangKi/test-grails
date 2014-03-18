@@ -10,6 +10,10 @@ class AuthorController {
   
   static scaffold = true
 
+  def afterInterceptor = {
+    org.codehaus.groovy.grails.scaffolding.view.ScaffoldingViewResolver.scaffoldedViews.clear()
+  }
+
   static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
   def index(Integer max) {
