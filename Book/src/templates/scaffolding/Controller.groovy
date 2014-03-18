@@ -3,14 +3,19 @@
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+import org.codehaus.groovy.grails.plugins.GrailsPlugin
+
 @Transactional(readOnly = true)
 class ${className}Controller {
 
     static scaffold = true
+    
+    def pluginManager
+    def grailsApplication
 
     // development only!!!
     def afterInterceptor = {
-      org.codehaus.groovy.grails.scaffolding.view.ScaffoldingViewResolver.scaffoldedViews.clear()
+      pluginManager.getGrailsPlugin('scaffolding').notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE, null)
     }
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
