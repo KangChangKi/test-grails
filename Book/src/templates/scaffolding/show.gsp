@@ -9,15 +9,7 @@
   </head>
   <body>
 
-    <div class="container">
-      <!--
-      <div class="row">
-      <div class="col-xs-12">
-      <a href="#show-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-      </div>
-      </div>
-      -->
-
+    <content tag="nav1">
       <div class="row nav" role="navigation">
 	<div class="col-xs-2">
 	  <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
@@ -26,23 +18,25 @@
 	  <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link>
 	</div>
       </div>
-    </div> <!-- end of container -->
+    </content>
 
-    <div id="show-${domainClass.propertyName}" class="container" role="main">
-      <div class="row">
-	<div class="col-xs-12">
-	  <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-	</div>
-      </div>
+    <hr/>
 
-      <g:if test="\${flash.message}">
+    <content tag="self-header1">
+      <g:message code="default.show.label" args="[entityName]" />
+    </content>
+
+    <g:if test="\${flash.message}">
+      <content tag="self-header2">
 	<div class="row margin-bottom-10">
 	  <div class="col-xs-12 bg-info">
 	    <div class="message" role="status">\${flash.message}</div>
 	  </div>
 	</div>
-      </g:if>
+      </content>
+    </g:if>
 
+    <content tag="self-body">
       <form class="form-horizontal property-list ${domainClass.propertyName}">
 	<%
 	excludedProps = Event.allEvents.toList() << 'id' << 'version'
@@ -121,49 +115,6 @@
 		</g:if>
 		<%  } %>
       </form>
-    </div> <!-- end of container -->
-
-    <div class="container">
-      <% props.each { p -> %>
-      <g:if test="\${${propertyName}?.${p.name}}">
-	<%  if (p.oneToMany || p.manyToMany) { %>
-	<div class="row fieldcontain">
-	  <div id="${p.name}-label" class="col-sm-12 control-label property-label">
-	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h2>
-	  </div>
-	</div>
-
-	<table class="table table-hover table-condensed">
-	  <g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
-	    <tr class="fieldcontain">
-	      <td class="property-value" aria-labelledby="${p.name}-label">
-		<g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link>
-	      </td>
-	    </tr>
-	  </g:each>
-	</table>
-
-	<%  } else if (p.manyToOne || p.oneToOne) { %>
-	<div class="row fieldcontain">
-	  <div id="${p.name}-label" class="col-sm-12 property-label">
-	    <h2><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></h2>
-	  </div>
-	</div>
-
-	<table class="table table-hover table-condensed">
-	  <tr class="fieldcontain">
-	    <td class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
-	      <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link>
-	    </td>
-	  </tr>
-	</table>
-	<%  } %>
-	    </g:if>
-	    <%  } %>
-
-    </div> <!-- end of container -->
-
-    <div class="container">
 
       <g:form url="[resource:${propertyName}, action:'delete']" method="DELETE">
 	<fieldset class="buttons">
@@ -178,7 +129,50 @@
 	</fieldset>
 	    </g:form>
 
-    </div> <!-- end of container -->
+
+    </content>
+
+    <hr/>
+
+    <%
+    int otherIndex = 1
+    props.each { p -> %>
+    <g:if test="\${${propertyName}?.${p.name}}">
+      <%  if (p.oneToMany || p.manyToMany) { %>
+      <content tag="other${otherIndex}-header">
+	<g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
+      </content>
+
+      <content tag="other${otherIndex}-body">
+	<table class="table table-hover table-condensed">
+	<g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
+	  <tr class="fieldcontain">
+	    <td class="property-value" aria-labelledby="${p.name}-label">
+	      <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link>
+	    </td>
+	  </tr>
+	</g:each>
+	</table>
+      </content>
+      <% } else if (p.manyToOne || p.oneToOne) { %>
+      <content tag="other${otherIndex}-header">
+	<g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
+      </content>
+
+      <content tag="other${otherIndex}-body">
+	<table class="table table-hover table-condensed">
+	  <tr class="fieldcontain">
+	    <td class="col-xs-2 property-value" aria-labelledby="${p.name}-label">
+	      <g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link>
+	    </td>
+	  </tr>
+	</table>
+      </content>
+      <%  } // end of if %>
+	</g:if>
+	<%
+	++otherIndex
+	} // end of each %>
 
   </body>
 </html>
