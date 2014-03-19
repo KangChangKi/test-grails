@@ -10,7 +10,7 @@
       <h1>Available Controllers</h1>
       <ul>
 	<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-	  <li ><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+	  <li><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName}</g:link> (${c.fullName})</li>
 	</g:each>
       </ul>
     </content>
