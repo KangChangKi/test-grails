@@ -8,15 +8,7 @@
   </head>
   <body>
 
-    <div class="container">
-      <!--
-      <div class="row">
-      <div class="col-xs-12">
-      <a href="#edit-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-      </div>
-      </div>
-      -->
-
+    <content tag="nav1">
       <div class="row nav" role="navigation">
 	<div class="col-xs-2">
 	  <a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
@@ -26,24 +18,26 @@
 	  <g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link>
 	</div>
       </div>
-    </div> <!-- end of container -->
+    </content>
 
-    <div id="edit-${domainClass.propertyName}" class="container scaffold-edit" role="main">
-      <div class="row">
-	<div class="col-xs-12">
-	  <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-	</div>
-      </div>
+    <hr/>
 
-      <g:if test="\${flash.message}">
+    <content tag="self-header1">
+      <g:message code="default.edit.label" args="[entityName]" />
+    </content>
+    
+    <g:if test="\${flash.message}">
+      <content tag="self-header2">
 	<div class="row margin-bottom-10">
 	  <div class="col-xs-12 bg-info">
 	    <div class="message" role="status">\${flash.message}</div>
 	  </div>
 	</div>
-      </g:if>
+      </content>
+    </g:if>
 
-      <g:hasErrors bean="\${${propertyName}}">
+    <g:hasErrors bean="\${${propertyName}}">
+      <content tag="self-header3">
 	<g:eachError bean="\${${propertyName}}" var="error">
 	  <div class="row margin-bottom-10">
 	    <div class="col-xs-12 bg-danger" <g:if test="\${error in org.springframework.validation.FieldError}">data-field-id="\${error.field}"</g:if>>
@@ -51,8 +45,11 @@
 	    </div>
 	  </div>
 	      </g:eachError>
-      </g:hasErrors>
+      </content>
+    </g:hasErrors>
+    </content>
 
+    <content tag="self-body">
       <g:form url="[resource:${propertyName}, action:'update']" method="PUT" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
 	<g:hiddenField name="version" value="\${${propertyName}?.version}" />
 
@@ -70,16 +67,9 @@
 
 	</fieldset>
 	    </g:form>
+    </content>
 
-	    <hr/>
-
-	    <div class="row">
-	      <div class="col-sm-12">
-		<g:render template="form2" />
-	      </div>
-	    </div>
-
-    </div> <!-- end of container -->
+    <g:render template="form2" />
 
   </body>
 </html>

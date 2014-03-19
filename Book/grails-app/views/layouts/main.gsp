@@ -26,15 +26,79 @@
     <r:layoutResources />
   </head>
   <body>
-    <g:layoutBody/>
-    <div class="footer" role="contentinfo"></div>
-    <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-    <r:layoutResources />
+    <%-- <g:layoutBody/> --%>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <div class="container">
+      <g:pageProperty name="page.nav1" />
+      <g:pageProperty name="page.nav2" />
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <h1>
+	    <g:pageProperty name="page.self-header1" />
+	  </h1>
+	</div>
+      </div>
+
+      <g:pageProperty name="page.self-header2" />
+      <g:pageProperty name="page.self-header3" />
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <g:pageProperty name="page.self-body" />
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <h2>
+	    <g:pageProperty name="page.other1-header" />
+	  </h2>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-sm-12">
+	  <g:pageProperty name="page.other1-body" />
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <h2>
+	    <g:pageProperty name="page.other2-header" />
+	  </h2>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-sm-12">
+	  <g:pageProperty name="page.other2-body" />
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col-sm-12">
+	  <h2>
+	    <g:pageProperty name="page.other3-header" />
+	  </h2>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-sm-12">
+	  <g:pageProperty name="page.other3-body" />
+	</div>
+      </div>
+
+      <div class="footer" role="contentinfo"></div>
+      <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+      <r:layoutResources />
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   </body>
 </html>

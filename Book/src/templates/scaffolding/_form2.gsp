@@ -30,33 +30,34 @@ domainClass.getClazz().getDeclaredFields().collect {
 }
 props.sort { map[it.name] }
 
+int otherIndex = 1
 for (p in props) {
   if (p.embedded) {
     def embeddedPropNames = p.component.persistentProperties*.name
     def embeddedProps = p.component.properties.findAll {
       embeddedPropNames.contains(it.name) &&
       !excludedProps.contains(it.name)
-  }
+    }
 
-  Collections.sort(embeddedProps, comparator.constructors[0].newInstance([p.component] as Object[]))
+    Collections.sort(embeddedProps, comparator.constructors[0].newInstance([p.component] as Object[]))
 %>
 <fieldset class="embedded">
   <legend>
     <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" />
   </legend>
 <%
-  for (ep in p.component.properties) {
-    renderFieldForProperty(ep, p.component, "${p.name}.")
-  }
+    for (ep in p.component.properties) {
+      renderFieldForProperty(ep, p.component, otherIndex++, "${p.name}.")
+    }
 %>
 </fieldset>
 <%
-} else {
-  renderFieldForProperty(p, domainClass)
-}
+  } else {
+    renderFieldForProperty(p, domainClass, otherIndex++)
+  }
 } // end of method
 
-private renderFieldForProperty(p, owningClass, prefix = "") {
+private renderFieldForProperty(p, owningClass, otherIndex, prefix = "") {
   boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
   boolean display = true
   boolean required = false
@@ -67,23 +68,19 @@ private renderFieldForProperty(p, owningClass, prefix = "") {
   }
   if (display) {
 %>
-<div class="row">
-<div class="col-sm-12 \${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
-  <h2>
+
+<content tag="other${otherIndex}-header">
+<span class="\${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
 <%  if (required) { %>
       <span class="required-indicator">*</span>
 <%  } %>
   <g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
-  </h2>
-</div>
-</div>
+</content>
 
-<div class="row">
-<div class="col-sm-12">
-    ${renderEditor(p)}
-</div>
-</div>
+<content tag="other${otherIndex}-body">
+  ${renderEditor(p)}
+</content>
 <%
-    } // end of method
-} // end of class
+  } // end of if
+} // end of method
 %>
