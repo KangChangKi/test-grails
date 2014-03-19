@@ -2,9 +2,12 @@ package org.kang
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.apache.commons.logging.LogFactory
 
 @Transactional(readOnly = true)
 class BookController {
+
+  private static final log = LogFactory.getLog(this)
 
   static scaffold = true
 

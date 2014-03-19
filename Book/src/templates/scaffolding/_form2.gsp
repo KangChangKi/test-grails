@@ -69,17 +69,20 @@ private renderFieldForProperty(p, owningClass, otherIndex, prefix = "") {
   if (display) {
 %>
 
-<content tag="other${otherIndex}-header">
-<span class="\${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
-<%  if (required) { %>
-      <span class="required-indicator">*</span>
-<%  } %>
-  <g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
-</content>
 
-<content tag="other${otherIndex}-body">
-  ${renderEditor(p)}
-</content>
+
+<div class="form-group fieldcontain \${hasErrors(bean: ${propertyName}, field: '${prefix}${p.name}', 'error')} ${required ? 'required' : ''}">
+    <label for="${prefix}${p.name}">
+    <g:message code="${domainClass.propertyName}.${prefix}${p.name}.label" default="${p.naturalName}" />
+    <%  if (required) { %>
+      <span class="required-indicator">*</span>
+      <%  } %>
+    </label>
+    ${renderEditor(p)}
+</div>
+
+
+
 <%
   } // end of if
 } // end of method

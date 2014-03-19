@@ -100,12 +100,11 @@
             sb << '<g:select'
 			// id is "x" and name is "x.id" as the label will have for="x" and "." in an id will confuse CSS
  			sb << ' id="' << property.name << '"'
- 			sb << ' class="form-control" name="' << property.name << '.id"'
+ 			sb << ' class="form-control many-to-one" name="' << property.name << '.id"'
  			sb << ' from="${' << property.type.name << '.list()}"'
  			sb << ' optionKey="id"'
 			if (isRequired()) sb << ' required=""'
  			sb << ' value="${' << "${domainInstance}?.${property.name}" << '?.id}"'
- 			sb << ' class="many-to-one"'
  			sb << renderNoSelection(property)
  			sb << '/>'
 			sb as String

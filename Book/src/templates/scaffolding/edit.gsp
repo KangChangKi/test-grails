@@ -56,6 +56,7 @@
 	<fieldset class="form">
 	  <g:set var="primitive" value="${true}" />
 	  <g:render template="form" />
+	  <g:render template="form2" />
 	</fieldset>
 
 	<fieldset class="buttons">
@@ -69,7 +70,7 @@
 	    </g:form>
     </content>
 
-    <g:render template="form2" />
+
 
   </body>
 </html>

@@ -53,16 +53,17 @@
     <hr/>
 
     <content tag="self-body">
-    <g:form url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
-      <fieldset class="form">
-	<g:render template="form"/>
-      </fieldset>
+      <g:form url="[resource:${propertyName}, action:'save']" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
+	<fieldset class="form">
+	  <g:render template="form"/>
+	  <g:render template="form2"/>
+	</fieldset>
 
-      <fieldset class="buttons">
-	<g:submitButton name="create" class="btn btn-primary save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
-      </fieldset>
-    </g:form>
+	<fieldset class="buttons">
+	  <g:submitButton name="create" class="btn btn-primary save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
+	</fieldset>
+      </g:form>
     </content>
 
-</body>
+  </body>
 </html>
