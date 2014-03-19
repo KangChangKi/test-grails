@@ -55,6 +55,7 @@ grails.project.dependency.resolution = {
   plugins {
     // additions
     compile ":fields:1.3"
+    compile ":console:1.3"
 
     // plugins for the build system only
     build ":tomcat:7.0.50.1"
