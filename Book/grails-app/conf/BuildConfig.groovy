@@ -84,3 +84,7 @@ grails.project.dependency.resolution = {
     //compile ":handlebars-asset-pipeline:1.0.0.3"
   }
 }
+
+// own plugins
+grails.plugin.location.SomePlugin = "../SomePlugin"
+
